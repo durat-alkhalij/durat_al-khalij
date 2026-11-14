@@ -68,7 +68,7 @@
   });
 
   let lang = "ar";
-  try { lang = localStorage.getItem("lang") || "ar"; } catch (e) {}
+  try { lang = localStorage.getItem("site_lang") || "ar"; } catch (e) {}
 
   const t = (key) => (lang === "ar" ? AR[key] : EN[key]) || EN[key] || key;
 
@@ -86,7 +86,7 @@
 
   document.getElementById("langToggle").addEventListener("click", () => {
     lang = lang === "ar" ? "en" : "ar";
-    try { localStorage.setItem("lang", lang); } catch (e) {}
+    try { localStorage.setItem("site_lang", lang); } catch (e) {}
     applyLang();
   });
 

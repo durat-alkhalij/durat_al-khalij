@@ -10,7 +10,7 @@ window.SITE_CONFIG = {
     whatsapp: "+966594098486",            // digits only, with country code, e.g. 9665XXXXXXXX
     email: "durat.alkhalij97@gmail.com",
     address_en: "33 Al Hawra, Yanbu 46424, Saudi Arabia",
-    address_ar: "الحوراء, ينبع, السعودية",
+    address_ar: "٣٣ الحوراء, ينبع, السعودية",
     hours_en: "Saturday -- Friday: 9:00 AM -- 11:00 PM",
     hours_ar: "السبت -- الخميس: ٩ صباحاً -- 11 مساءً",
     // Google Maps → Share → "Embed a map" → copy ONLY the src="..." URL from the iframe code.
