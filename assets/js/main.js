@@ -67,8 +67,8 @@
     EN[el.dataset.i18n] = el.innerHTML.trim();
   });
 
-  let lang = "en";
-  try { lang = localStorage.getItem("lang") || "en"; } catch (e) {}
+  let lang = "ar";
+  try { lang = localStorage.getItem("lang") || "ar"; } catch (e) {}
 
   const t = (key) => (lang === "ar" ? AR[key] : EN[key]) || EN[key] || key;
 
