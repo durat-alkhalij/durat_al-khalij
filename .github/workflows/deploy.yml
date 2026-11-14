@@ -1,0 +1,56 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate HTML
+        run: npx --yes html-validate@8 index.html
+
+      - name: Check gallery images referenced in config exist
+        run: |
+          missing=0
+          for f in $(grep -oE 'assets/images/gallery/[^"]+' assets/js/config.js); do
+            if [ ! -f "$f" ]; then echo "::error::Missing gallery image: $f"; missing=1; fi
+          done
+          exit $missing
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare site folder
+        run: |
+          mkdir -p _site
+          cp -r index.html assets _site/
+          touch _site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
